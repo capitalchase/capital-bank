@@ -988,3 +988,13 @@ window.sendChat = function () {
     chatBox.scrollTop = chatBox.scrollHeight;
 
 };
+
+window.showMonth = function(month, amount){
+
+    alert(
+        "Capital Bank\n\n" +
+        "Month: " + month + "\n" +
+        "Total Spending: " + amount
+    );
+
+};
