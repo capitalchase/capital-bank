@@ -998,3 +998,12 @@ window.showBeneficiaries = function () {
     );
 
 };
+/* ===========================
+   OPEN FULL HISTORY
+=========================== */
+
+window.openHistory = function () {
+
+    window.location.href = "history.html";
+
+};
