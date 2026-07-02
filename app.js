@@ -998,3 +998,23 @@ window.showMonth = function(month, amount){
     );
 
 };
+window.showMonthlySpending = function () {
+
+    alert(
+        "CAPITAL BANK\n\n" +
+        "Monthly Spending Report\n\n" +
+        "January: $1,250,000\n" +
+        "February: $2,100,000\n" +
+        "March: $850,000\n" +
+        "April: $1,750,000\n" +
+        "May: $1,300,000\n" +
+        "June: $2,500,000\n" +
+        "July: $1,100,000\n" +
+        "August: $1,800,000\n" +
+        "September: $980,000\n" +
+        "October: $2,000,000\n" +
+        "November: $1,600,000\n" +
+        "December: $2,900,000"
+    );
+
+};
