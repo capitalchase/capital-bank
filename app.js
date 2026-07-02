@@ -1025,3 +1025,86 @@ window.sendChat = function () {
     chatBox.scrollTop = chatBox.scrollHeight;
 
 };
+/* ===========================
+   CAPITAL BANK CHATBOT
+=========================== */
+
+window.sendChat = function () {
+
+    const input = document.getElementById("chatInput");
+    const chatBox = document.getElementById("chatBox");
+
+    if (!input || !chatBox) return;
+
+    const message = input.value.trim();
+
+    if (message === "") return;
+
+    chatBox.innerHTML += `
+        <div class="user-message">
+            <strong>You:</strong><br>${message}
+        </div>
+    `;
+
+    const currentUser =
+        JSON.parse(localStorage.getItem("currentUser"));
+
+    const question = message.toLowerCase();
+
+    let reply = "";
+
+    if (question.includes("balance")) {
+
+        reply = "Your available balance is $" +
+            currentUser.balance.toLocaleString();
+
+    } else if (question.includes("saving")) {
+
+        reply = "Your savings balance is $" +
+            currentUser.savings.toLocaleString();
+
+    } else if (question.includes("transfer")) {
+
+        reply = "To transfer money, open the Transfer page from the menu and enter the recipient details.";
+
+    } else if (question.includes("loan")) {
+
+        reply = "You can apply for a new loan from the Loan Information section on your dashboard.";
+
+    } else if (question.includes("statement")) {
+
+        reply = "Your account statement is available from the Statement page.";
+
+    } else if (question.includes("deposit")) {
+
+        reply = "You can deposit funds using the Deposit page.";
+
+    } else if (question.includes("withdraw")) {
+
+        reply = "You can withdraw funds from the Withdraw page.";
+
+    } else if (question.includes("hello") || question.includes("hi")) {
+
+        reply = "Hello! Welcome to Capital Bank. How may I assist you today?";
+
+    } else if (question.includes("thanks") || question.includes("thank you")) {
+
+        reply = "You're welcome. Thank you for banking with Capital Bank.";
+
+    } else {
+
+        reply = "Sorry, I couldn't understand your request. Please ask about your balance, savings, transfer, loan, deposit, withdrawal, or statement.";
+
+    }
+
+    chatBox.innerHTML += `
+        <div class="bot-message">
+            <strong>Capital Bank:</strong><br>${reply}
+        </div>
+    `;
+
+    input.value = "";
+
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+};
