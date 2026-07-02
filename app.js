@@ -963,15 +963,6 @@ window.sendChat = function () {
 
 };
 
-window.showMonth = function(month, amount){
-
-    alert(
-        "Capital Bank\n\n" +
-        "Month: " + month + "\n" +
-        "Total Spending: " + amount
-    );
-
-};
 window.showMonthlySpending = function () {
 
     alert(
@@ -992,6 +983,7 @@ window.showMonthlySpending = function () {
     );
 
 };
+
 window.showBeneficiaries = function () {
 
     alert(
