@@ -1018,3 +1018,17 @@ window.showMonthlySpending = function () {
     );
 
 };
+window.showBeneficiaries = function () {
+
+    alert(
+        "CAPITAL BANK\n\n" +
+        "Saved Beneficiaries\n\n" +
+        "John Williams\n" +
+        "Account: 1029384756\n\n" +
+        "Sarah Johnson\n" +
+        "Account: 8756341290\n\n" +
+        "Michael Brown\n" +
+        "Account: 9876543210"
+    );
+
+};
