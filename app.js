@@ -608,6 +608,90 @@ window.depositMoney = async function () {
     "dashboard.html";
 
 };
+/* ===========================
+   RECEIVE FUNDS
+=========================== */
+
+window.receiveFunds = async function () {
+
+  const amount =
+    Number(document.getElementById("receiveAmount").value);
+
+  let currentUser =
+    JSON.parse(localStorage.getItem("currentUser"));
+
+  if (!currentUser) {
+    alert("Login Required");
+    return;
+  }
+
+  if (!amount || amount <= 0) {
+    alert("Enter a valid amount");
+    return;
+  }
+
+  currentUser.balance += amount;
+
+  currentUser.transactions =
+    currentUser.transactions || [];
+
+  currentUser.transactions.push({
+    type: "Funds Received",
+    amount: amount,
+    narration: "Incoming Funds",
+    date: new Date().toLocaleString()
+  });
+
+  try {
+
+    await updateDoc(
+      doc(db, "Users", currentUser.email),
+      {
+        balance: currentUser.balance,
+        transactions: currentUser.transactions
+      }
+    );
+
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify(currentUser)
+    );
+
+    let allUsers =
+      JSON.parse(localStorage.getItem("users")) || [];
+
+    const index =
+      allUsers.findIndex(
+        u => u.email === currentUser.email
+      );
+
+    if (index !== -1) {
+      allUsers[index] = currentUser;
+
+      localStorage.setItem(
+        "users",
+        JSON.stringify(allUsers)
+      );
+    }
+
+    alert(
+      "Funds received successfully: $" +
+      amount.toLocaleString()
+    );
+
+    location.href = "dashboard.html";
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Unable to receive funds.\n" +
+      error.message
+    );
+
+  }
+};
 
 /* ===========================
    WITHDRAW
