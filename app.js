@@ -487,49 +487,6 @@ function applyLoan() {
 window.applyLoan = applyLoan;
 
 /* ===========================
-   TRANSFER HISTORY
-=========================== */
-
-window.loadTransferHistory =
-  function () {
-
-    let currentUser =
-      JSON.parse(
-        localStorage.getItem(
-          "currentUser"
-        )
-      );
-
-    const table =
-      document.getElementById(
-        "historyTable"
-      );
-
-    if (
-      !table ||
-      !currentUser
-    )
-      return;
-
-    table.innerHTML = "";
-
-    currentUser.transactions.forEach(
-      t => {
-
-        table.innerHTML += `
-        <tr>
-          <td>${t.date}</td>
-          <td>${t.type}</td>
-          <td>₦${t.amount.toLocaleString()}</td>
-        </tr>
-      `;
-
-      }
-    );
-
-  };
-
-/* ===========================
    DEPOSIT
 =========================== */
 
