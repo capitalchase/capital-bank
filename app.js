@@ -608,91 +608,106 @@ window.depositMoney = async function () {
     "dashboard.html";
 
 };
+
 /* ===========================
    RECEIVE FUNDS
 =========================== */
 
 window.receiveFunds = async function () {
 
-  const amount =
-    Number(document.getElementById("receiveAmount").value);
+    const amount =
+        Number(document.getElementById("receiveAmount").value);
 
-  let currentUser =
-    JSON.parse(localStorage.getItem("currentUser"));
-
-  if (!currentUser) {
-    alert("Login Required");
-    return;
-  }
-
-  if (!amount || amount <= 0) {
-    alert("Enter a valid amount");
-    return;
-  }
-
-  currentUser.balance += amount;
-
-  currentUser.transactions =
-    currentUser.transactions || [];
-
-  currentUser.transactions.push({
-    type: "Funds Received",
-    amount: amount,
-    narration: "Incoming Funds",
-    date: new Date().toLocaleString()
-  });
-
-  try {
-
-    await updateDoc(
-      doc(db, "Users", currentUser.email),
-      {
-        balance: currentUser.balance,
-        transactions: currentUser.transactions
-      }
-    );
-
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify(currentUser)
-    );
-
-    let allUsers =
-      JSON.parse(localStorage.getItem("users")) || [];
-
-    const index =
-      allUsers.findIndex(
-        u => u.email === currentUser.email
-      );
-
-    if (index !== -1) {
-      allUsers[index] = currentUser;
-
-      localStorage.setItem(
-        "users",
-        JSON.stringify(allUsers)
-      );
+    if (!amount || amount <= 0) {
+        alert("Enter a valid amount");
+        return;
     }
 
-    alert(
-      "Funds received successfully: $" +
-      amount.toLocaleString()
-    );
+    const currentUser =
+        JSON.parse(localStorage.getItem("currentUser"));
 
-    location.href = "dashboard.html";
+    if (!currentUser) {
+        alert("Login Required");
+        return;
+    }
 
-  } catch (error) {
+    try {
 
-    console.error(error);
+        // Make sure balance is a number
+        const currentBalance =
+            Number(currentUser.balance) || 0;
 
-    alert(
-      "Unable to receive funds.\n" +
-      error.message
-    );
+        // Calculate new balance
+        const newBalance =
+            currentBalance + amount;
 
-  }
+        // Make sure transactions exists
+        currentUser.transactions =
+            currentUser.transactions || [];
+
+        // Add incoming transaction
+        currentUser.transactions.push({
+            type: "Funds Received",
+            amount: amount,
+            narration: "Incoming Funds",
+            date: new Date().toLocaleString()
+        });
+
+        // Update balance AND transactions in Firestore
+        await updateDoc(
+            doc(db, "Users", currentUser.email),
+            {
+                balance: newBalance,
+                transactions: currentUser.transactions
+            }
+        );
+
+        // Update local user
+        currentUser.balance = newBalance;
+
+        localStorage.setItem(
+            "currentUser",
+            JSON.stringify(currentUser)
+        );
+
+        // Update local users list
+        let allUsers =
+            JSON.parse(localStorage.getItem("users")) || [];
+
+        const index =
+            allUsers.findIndex(
+                u => u.email === currentUser.email
+            );
+
+        if (index !== -1) {
+
+            allUsers[index] = currentUser;
+
+            localStorage.setItem(
+                "users",
+                JSON.stringify(allUsers)
+            );
+        }
+
+        alert(
+            "Funds received successfully: $" +
+            amount.toLocaleString()
+        );
+
+        // Reload dashboard
+        window.location.href = "dashboard.html";
+
+    } catch (error) {
+
+        console.error("Receive Funds Error:", error);
+
+        alert(
+            "Unable to receive funds.\n\n" +
+            error.message
+        );
+    }
 };
-
+        
 /* ===========================
    WITHDRAW
 =========================== */
