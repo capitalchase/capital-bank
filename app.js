@@ -664,91 +664,150 @@ window.receiveFunds = async function () {
         );
     }
 };
-        
-/* ===========================
+  /* ===========================
    WITHDRAW
 =========================== */
 
-window.withdrawMoney = function () {
+window.withdrawMoney = async function () {
 
-  let amount =
-    Number(
-      document.getElementById(
-        "withdrawAmount"
-      ).value
-    );
+    const input =
+        document.getElementById("withdrawAmount");
 
-  let currentUser =
-    JSON.parse(
-      localStorage.getItem(
-        "currentUser"
-      )
-    );
+    const amount =
+        Number(input.value);
 
-  if (!currentUser) {
+    const currentUser =
+        JSON.parse(
+            localStorage.getItem("currentUser")
+        );
 
-    alert("Login Required");
-    return;
+    if (!currentUser) {
 
-  }
+        alert("Login Required");
+        return;
 
-  if (amount <= 0) {
+    }
 
-    alert("Enter Valid Amount");
-    return;
+    if (!Number.isFinite(amount) || amount <= 0) {
 
-  }
+        alert("Enter a valid withdrawal amount.");
+        return;
 
-  if (amount > currentUser.balance) {
+    }
 
-    alert("Insufficient Balance");
-    return;
+    const currentBalance =
+        Number(currentUser.balance) || 0;
 
-  }
+    if (amount > currentBalance) {
 
-  currentUser.balance -= amount;
+        alert("Insufficient Balance");
+        return;
 
-  currentUser.transactions.push({
+    }
 
-    type: "Withdraw",
-    amount: amount,
-    date: new Date().toLocaleString()
+    try {
 
-  });
+        /* Calculate exact new balance */
+        const newBalance =
+            currentBalance - amount;
 
-  localStorage.setItem(
-    "currentUser",
-    JSON.stringify(currentUser)
-  );
+        /* Make sure transactions exists */
+        currentUser.transactions =
+            currentUser.transactions || [];
 
-  let allUsers =
-    JSON.parse(
-      localStorage.getItem("users")
-    ) || [];
+        /* Add withdrawal transaction */
+        currentUser.transactions.push({
 
-  let index =
-    allUsers.findIndex(
-      u => u.email === currentUser.email
-    );
+            type: "Withdrawal",
 
-  if (index !== -1) {
+            amount: amount,
 
-    allUsers[index] =
-      currentUser;
+            date:
+                new Date().toLocaleString()
 
-    localStorage.setItem(
-      "users",
-      JSON.stringify(allUsers)
-    );
+        });
 
-  }
+        /* Update Firestore */
+        await updateDoc(
 
-  alert("Withdrawal Successful");
+            doc(
+                db,
+                "Users",
+                currentUser.email
+            ),
 
-  location.href =
-    "dashboard.html";
+            {
+                balance: newBalance,
+                transactions:
+                    currentUser.transactions
+            }
 
-};
+        );
+
+        /* Update local account */
+        currentUser.balance =
+            newBalance;
+
+        localStorage.setItem(
+
+            "currentUser",
+
+            JSON.stringify(currentUser)
+
+        );
+
+        /* Update local users list */
+        let allUsers =
+            JSON.parse(
+                localStorage.getItem("users")
+            ) || [];
+
+        const index =
+            allUsers.findIndex(
+                user =>
+                    user.email ===
+                    currentUser.email
+            );
+
+        if (index !== -1) {
+
+            allUsers[index] =
+                currentUser;
+
+            localStorage.setItem(
+                "users",
+                JSON.stringify(allUsers)
+            );
+
+        }
+
+        alert(
+            "Withdrawal Successful\n\n" +
+            "Amount: $" +
+            amount.toLocaleString() +
+            "\n" +
+            "Remaining Balance: $" +
+            newBalance.toLocaleString()
+        );
+
+        window.location.href =
+            "dashboard.html";
+
+    } catch (error) {
+
+        console.error(
+            "Withdrawal Error:",
+            error
+        );
+
+        alert(
+            "Unable to complete withdrawal.\n\n" +
+            error.message
+        );
+
+    }
+
+};      
 
 /* ===========================
    HISTORY PAGE
