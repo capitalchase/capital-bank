@@ -2,548 +2,941 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Capital Bank Dashboard</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+<title>Capital Bank | Online Banking</title>
+
+<link rel="stylesheet"
+      href="style.css">
 
 </head>
 
 <body onload="loadDashboard()">
 
-<!-- Menu Button -->
-<div class="menu-btn" onclick="toggleMenu()">
-☰
-</div>
+<!-- ==========================
+     MENU BUTTON
+========================== -->
 
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
+<div class="menu-btn"
+     onclick="toggleMenu()">
 
-<h2>Capital Bank</h2>
-
-<a href="dashboard.html">🏠 Dashboard</a>
-<a href="deposit.html">💰 Deposit</a>
-<a href="withdraw.html">💵 Withdraw</a>
-<a href="transfer.html">🔂 Transfer</a>
-<a href="history.html">📜 History</a>
-<a href="statement.html">📄 Statement</a>
-<a href="schedule.html">📅 Schedule</a>
-
-<a href="#" onclick="logout()">🚪 Sign Out</a>
+    ☰
 
 </div>
 
-<!-- Dashboard -->
+
+<!-- ==========================
+     SIDEBAR
+========================== -->
+
+<div class="sidebar"
+     id="sidebar">
+
+    <h2>Capital Bank</h2>
+
+    <a href="dashboard.html">
+        🏠 Dashboard
+    </a>
+
+    <a href="deposit.html">
+        💰 Deposit
+    </a>
+
+    <a href="withdraw.html">
+        💵 Withdraw
+    </a>
+
+    <a href="transfer.html">
+        🔄 Transfer
+    </a>
+
+    <a href="history.html">
+        📜 History
+    </a>
+
+    <a href="statement.html">
+        📄 Statement
+    </a>
+
+    <a href="schedule.html">
+        📅 Scheduled Transfers
+    </a>
+
+    <a href="#" onclick="logout()">
+        🚪 Sign Out
+    </a>
+
+</div>
+
+
+<!-- ==========================
+     MAIN DASHBOARD
+========================== -->
+
 <div class="dashboard">
 
-<!-- Header -->
-<div class="top-header">
 
-<img src="logo.png"
-class="logo"
-alt="Capital Bank Logo">
+    <!-- ==========================
+         HEADER
+    ========================== -->
 
-<div>
+    <div class="top-header">
 
-<h1>Capital Bank</h1>
+        <img src="logo.png"
+             class="logo"
+             alt="Capital Bank Logo">
 
-<p>Digital Banking Platform</p>
+        <div>
 
-<button
-class="dark-btn"
-onclick="toggleDarkMode()">
+            <h1>Capital Bank</h1>
 
-🌙 Dark Mode
+            <p>
+                Online Banking
+            </p>
 
-</button>
+            <button
+                class="dark-btn"
+                onclick="toggleDarkMode()">
 
-</div>
+                🌙 Dark Mode
 
-</div>
+            </button>
 
-<!-- Profile -->
-<div class="profile-card">
-
-<div class="profile-info">
-
-<h2>
-Welcome Back,
-<span id="username"></span>
-</h2>
-
-<p>
-Last Login:
-18 June 2026 • 11:45 AM
-</p>
-
-<p>
-Account Number:
-<span id="accountNumber">
-1029384756
-</span>
-</p>
-
-</div>
-
-<div class="profile-actions">
-
-<button onclick="window.location.href='notifications.html'">
-🔔 Notifications
-</button>  
-
-<button onclick="logout()">
-🚪 Logout
-</button>
-
-</div>
-
-</div>
-
-<!-- Welcome Card -->
-<div class="welcome-card">
-
-<h2>Account Overview</h2>
-
-<p>
-Welcome back to your secure banking dashboard.
-</p>
-
-<span class="status">
-✅ Account Status: Active
-</span>
-
-</div>
-
-<!-- Account Cards -->
-<div class="cards-grid">
-
-<div class="bank-card balance-card">
-
-<h3>Available Balance</h3>
-
-<h1 id="balance"></h1>
-
-</div>
-
-<div class="bank-card">
-
-<h3>Savings Account</h3>
-
-<p id="savings"></p>
-
-</div>
-
-<div class="bank-card">
-
-<h3>Account Number</h3>
-
-<p id="accountNumberCard">
-1029384756
-</p>
-
-</div>
-
-<div class="bank-card">
-
-<h3>Account Type</h3>
-
-<p>Savings Account</p>
-
-</div>
-
-</div>
-<!-- ACCOUNTS OVERVIEW -->
-<div class="section">
-
-<h2>Accounts Overview</h2>
-
-<div class="cards-grid">
-
-<div class="bank-card">
-<h3>Checking Account</h3>
-<p>$5,500,000</p>
-<small>Account No: 1029384701</small>
-</div>
-
-<div class="bank-card">
-<h3>Savings Account</h3>
-<p id="overviewSavings"></p>
-<small>Account No: 1029384756</small>
-</div>
-
-<div class="bank-card">
-<h3>Domiciliary Account</h3>
-<p>$15,250</p>
-<small>USD Account</small>
-</div>
-
-</div>
-
-</div>
-
-<!-- QUICK ACTIONS -->
-<div class="section">
-
-<h2>Quick Actions</h2>
-
-<div class="cards-grid">
-
-<div class="bank-card">
-<h3>💡 Bills</h3>
-<p>Pay Bills</p>
-</div>
-
-<div class="bank-card">
-<h3>🏦 Transfer</h3>
-<p>Send Money</p>
-</div>
-
-<div class="bank-card">
-<h3>📄 Statement</h3>
-<p>Download Statement</p>
-</div>
-
-</div>
-
-</div>
-
-<!-- ACCOUNT SUMMARY -->
-<div class="section">
-
-<h2>Account Summary</h2>
-
-<div class="cards-grid">
-
-<div class="bank-card">
-<h3>Total Assets</h3>
-<p id="totalAssets">$38,000,000</p>
-</div>
-
-<div class="bank-card">
-<h3>Total Loans</h3>
-<p>$5,000,000</p>
-</div>
-
-<div class="bank-card">
-<h3>Investments</h3>
-<p>$8,000,000</p>
-</div>
-
-</div>
-
-</div>
-
-<!-- RECEIVE FUNDS -->
-
-<div class="section">
-
-    <h2>Receive Funds</h2>
-
-    <div class="bank-card">
-
-        <p>
-            Receive incoming funds into your account.
-        </p>
-
-        <input
-            type="number"
-            id="receiveAmount"
-            placeholder="Enter amount"
-            min="1"
-        >
-
-        <button onclick="receiveFunds()">
-            💰 Receive Funds
-        </button>
-
-    </div>
-
-</div>
-
-<!-- TRANSFER HISTORY -->
-<div class="bank-card">
-
-<h2>Transfer History</h2>
-
-<table class="history-table">
-
-<thead>
-<tr>
-<th>Date</th>
-<th>Transaction</th>
-<th>Amount</th>
-</tr>
-</thead>
-
-<tbody id="historyTable">
-</tbody>
-
-</table>
-
-</div>
-
-<!-- MY CARD -->
-<div class="section">
-
-<h2>My Card</h2>
-
-<div class="premium-card" onclick="showCardDetails()">
-
-<div class="card-top">
-<span>CAPITAL BANK</span>
-<span>VISA</span>
-</div>
-
-<div class="chip">💳</div>
-
-<h3 class="card-number">
-**** **** **** 4582
-</h3>
-
-<div class="card-bottom">
-
-<div>
-<small>CARD HOLDER</small>
-<p id="cardHolder">Capital Bank Customer</p>
-</div>
-
-<div>
-<small>EXPIRES</small>
-<p>09/28</p>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- SAVED BENEFICIARIES -->
-
-<div class="section">
-
-    <div class="bank-card" onclick="showBeneficiaries()" style="cursor:pointer;">
-
-        <h2>👥 Saved Beneficiaries</h2>
-
-        <p>Click here to view your saved beneficiaries.</p>
-
-    </div>
-
-</div>
-
-<!-- LOAN INFORMATION -->
-<div class="section">
-
-<h2>Loan Information</h2>
-
-<div class="bank-card">
-
-<p><strong>Status:</strong> Active</p>
-
-<p><strong>Outstanding Balance:</strong> $5,000,000</p>
-
-<p><strong>Monthly Repayment:</strong> $150,000</p>
-
-<button onclick="applyLoan()">
-Apply For New Loan
-</button>
-
-</div>
-
-</div>
-
-<!-- FIXED DEPOSIT -->
-<div class="section">
-
-<h2>Fixed Deposit</h2>
-
-<div class="bank-card">
-
-<p><strong>Deposit Amount:</strong> $3,000,000</p>
-
-<p><strong>Interest:</strong> 10% Per Year</p>
-
-<p><strong>Maturity:</strong> 15 December 2027</p>
-
-</div>
-
-</div>
-
-<!-- SECURITY -->
-<div class="section">
-
-<h2>Security Center</h2>
-
-<div class="bank-card">
-
-<p>✅ Two-Factor Authentication Enabled</p>
-
-<p>✅ Password Protected</p>
-
-<button>
-Manage Security
-</button>
-
-</div>
-
-</div>
-
-<!-- EXCHANGE RATES -->
-<div class="section">
-
-<h2>Exchange Rates</h2>
-
-<div class="bank-card">
-
-<p>USD: $1,600</p>
-
-<p>EUR: €1,730</p>
-
-<p>USD: $2,020</p>
-
-</div>
-
-</div>
-
-<!-- RECENT ACTIVITY -->
-
-<div class="section clickable-section"
-     onclick="openHistory()">
-
-    <h2>Recent Activity</h2>
-
-    <ul class="activity-feed">
-
-        <li>✅ Transfer Sent - $50,000</li>
-        <li>✅ Salary Received - $2,000,000</li>
-        <li>✅ Card Payment - $4,500</li>
-        <li>✅ Airtime Purchase - $2,000</li>
-
-    </ul>
-
-    <p style="color:#004aad;font-weight:bold;">
-        Click here to view full transaction history →
-    </p>
-
-</div>
-    
-<!-- MONTHLY SPENDING -->
-
-<div class="section">
-
-    <div class="bank-card" onclick="showMonthlySpending()" style="cursor:pointer;">
-
-        <h2>📊 Monthly Spending</h2>
-
-        <p>Click here to view your monthly spending report.</p>
-
-    </div>
-
-</div>
-    
-<!-- NOTIFICATIONS -->
-
-<div class="section">
-
-    <div class="bank-card" onclick="showNotifications()" style="cursor:pointer;">
-
-        <h2>🔔 Notifications</h2>
-
-        <p>Click here to view all notifications.</p>
-
-    </div>
-
-</div>
-
-<!-- ===========================
-     CAPITAL BANK CHATBOT
-=========================== -->
-
-<div class="bank-card">
-
-    <h2>💬 Capital Bank Chatbot</h2>
-
-    <div id="chatBox" class="chat-box">
-
-        <div class="bot-message">
-            👋 Welcome to Capital Bank!
-
-            <br><br>
-
-            I can help you with:
-
-            <br>• Check Balance
-            <br>• Savings Account
-            <br>• Fund Transfer
-            <br>• Loan Information
-            <br>• Card Services
-            <br>• Account Statement
-            <br>• Fixed Deposit
-            <br>• Security Tips
-
-            <br><br>
-
-            Type your question below.
         </div>
 
     </div>
 
-    <input
-        type="text"
-        id="chatInput"
-        placeholder="Ask Capital Bank...">
 
-    <button onclick="sendChat()">
-        Send Message
-    </button>
+    <!-- ==========================
+         PROFILE
+    ========================== -->
+
+    <div class="profile-card">
+
+        <div class="profile-info">
+
+            <h2>
+                Welcome Back,
+                <span id="username"></span>
+            </h2>
+
+            <p>
+                Last Login:
+                18 June 2026 • 11:45 AM
+            </p>
+
+            <p>
+                Account Number:
+                <span id="accountNumber">
+                    1029384756
+                </span>
+            </p>
+
+        </div>
+
+
+        <div class="profile-actions">
+
+            <button
+                onclick="window.location.href='notifications.html'">
+
+                🔔 Notifications
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         ACCOUNT OVERVIEW
+    ========================== -->
+
+    <div class="welcome-card">
+
+        <h2>
+            Account Overview
+        </h2>
+
+        <p>
+            Welcome back to your secure
+            Capital Bank online banking account.
+        </p>
+
+        <span class="status">
+            ✅ Account Status: Active
+        </span>
+
+    </div>
+
+
+    <!-- ==========================
+         ACCOUNT CARDS
+    ========================== -->
+
+    <div class="cards-grid">
+
+
+        <!-- AVAILABLE BALANCE -->
+
+        <div class="bank-card balance-card">
+
+            <h3>
+                Available Balance
+            </h3>
+
+            <h1 id="balance">
+                $0
+            </h1>
+
+        </div>
+
+
+        <!-- SAVINGS -->
+
+        <div class="bank-card">
+
+            <h3>
+                Savings Account
+            </h3>
+
+            <p id="savings">
+                $0
+            </p>
+
+        </div>
+
+
+        <!-- ACCOUNT NUMBER -->
+
+        <div class="bank-card">
+
+            <h3>
+                Account Number
+            </h3>
+
+            <p id="accountNumberCard">
+                1029384756
+            </p>
+
+        </div>
+
+
+        <!-- ACCOUNT TYPE -->
+
+        <div class="bank-card">
+
+            <h3>
+                Account Type
+            </h3>
+
+            <p>
+                Savings Account
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         ACCOUNTS
+    ========================== -->
+
+    <div class="section">
+
+        <h2>
+            Accounts
+        </h2>
+
+        <div class="cards-grid">
+
+
+            <div class="bank-card">
+
+                <h3>
+                    Checking Account
+                </h3>
+
+                <p>
+                    $5,500,000
+                </p>
+
+                <small>
+                    Account No:
+                    1029384701
+                </small>
+
+            </div>
+
+
+            <div class="bank-card">
+
+                <h3>
+                    Savings Account
+                </h3>
+
+                <p id="overviewSavings">
+                    $0
+                </p>
+
+                <small>
+                    Account No:
+                    1029384756
+                </small>
+
+            </div>
+
+
+            <div class="bank-card">
+
+                <h3>
+                    Domiciliary Account
+                </h3>
+
+                <p>
+                    $15,250
+                </p>
+
+                <small>
+                    USD Account
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         ACCOUNT SUMMARY
+    ========================== -->
+
+    <div class="section">
+
+        <h2>
+            Account Summary
+        </h2>
+
+        <div class="cards-grid">
+
+
+            <div class="bank-card">
+
+                <h3>
+                    Total Assets
+                </h3>
+
+                <p id="totalAssets">
+                    $38,000,000
+                </p>
+
+            </div>
+
+
+            <div class="bank-card">
+
+                <h3>
+                    Total Loans
+                </h3>
+
+                <p>
+                    $5,000,000
+                </p>
+
+            </div>
+
+
+            <div class="bank-card">
+
+                <h3>
+                    Investments
+                </h3>
+
+                <p>
+                    $8,000,000
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         BANKING SERVICES
+    ========================== -->
+
+    <div class="section">
+
+        <h2>
+            Banking Services
+        </h2>
+
+        <div class="cards-grid">
+
+
+            <div class="bank-card clickable-section"
+                 onclick="window.location.href='transfer.html'">
+
+                <h3>
+                    🔄 Transfer
+                </h3>
+
+                <p>
+                    Transfer funds
+                </p>
+
+            </div>
+
+
+            <div class="bank-card clickable-section"
+                 onclick="window.location.href='deposit.html'">
+
+                <h3>
+                    💰 Deposit
+                </h3>
+
+                <p>
+                    Add funds to your account
+                </p>
+
+            </div>
+
+
+            <div class="bank-card clickable-section"
+                 onclick="window.location.href='withdraw.html'">
+
+                <h3>
+                    💵 Withdraw
+                </h3>
+
+                <p>
+                    Withdraw funds
+                </p>
+
+            </div>
+
+
+            <div class="bank-card clickable-section"
+                 onclick="window.location.href='statement.html'">
+
+                <h3>
+                    📄 Statement
+                </h3>
+
+                <p>
+                    View account statement
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         RECEIVE FUNDS
+    ========================== -->
+
+    <div class="section">
+
+        <h2>
+            Receive Funds
+        </h2>
+
+        <div class="bank-card">
+
+            <p>
+                Add incoming funds to your
+                account balance.
+            </p>
+
+            <input
+                type="number"
+                id="receiveAmount"
+                placeholder="Enter amount"
+                min="1">
+
+            <button
+                onclick="receiveFunds()">
+
+                💰 Receive Funds
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         EXCHANGE RATES
+    ========================== -->
+
+    <div class="section">
+
+        <div class="bank-card clickable-section"
+             onclick="showExchangeRates()">
+
+            <h2>
+                💱 Exchange Rates
+            </h2>
+
+            <p>
+                View current currency rates
+                and conversion information.
+            </p>
+
+            <p>
+                <strong>
+                    Tap to view rates →
+                </strong>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         RECENT ACTIVITY
+    ========================== -->
+
+    <div class="section clickable-section"
+         onclick="openHistory()">
+
+        <div class="bank-card">
+
+            <h2>
+                📜 Recent Activity
+            </h2>
+
+            <ul class="activity-feed">
+
+                <li>
+                    Recent account activity
+                </li>
+
+                <li>
+                    View your latest transactions
+                </li>
+
+            </ul>
+
+            <p>
+                <strong>
+                    View full transaction history →
+                </strong>
+            </p>
+
+        </div>
+
+    </div>
+    <!-- ==========================
+         MONTHLY SPENDING
+    ========================== -->
+
+    <div class="section">
+
+        <div class="bank-card clickable-section"
+             onclick="showMonthlySpending()">
+
+            <h2>
+                📊 Monthly Spending
+            </h2>
+
+            <p>
+                Review your monthly spending
+                activity and reports.
+            </p>
+
+            <p>
+                <strong>
+                    Tap to view spending report →
+                </strong>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         NOTIFICATIONS
+    ========================== -->
+
+    <div class="section">
+
+        <div class="bank-card clickable-section"
+             onclick="showNotifications()">
+
+            <h2>
+                🔔 Notifications
+            </h2>
+
+            <p>
+                View important account
+                notifications and updates.
+            </p>
+
+            <p>
+                <strong>
+                    Tap to view notifications →
+                </strong>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         MY CARD
+    ========================== -->
+
+    <div class="section">
+
+        <h2>
+            My Card
+        </h2>
+
+        <div class="premium-card"
+             onclick="showCardDetails()">
+
+            <div class="card-top">
+
+                <span>
+                    CAPITAL BANK
+                </span>
+
+                <span>
+                    VISA
+                </span>
+
+            </div>
+
+
+            <div class="chip">
+                💳
+            </div>
+
+
+            <h3 class="card-number">
+                **** **** **** 4582
+            </h3>
+
+
+            <div class="card-bottom">
+
+                <div>
+
+                    <small>
+                        CARD HOLDER
+                    </small>
+
+                    <p id="cardHolder">
+                        Capital Bank Customer
+                    </p>
+
+                </div>
+
+
+                <div>
+
+                    <small>
+                        EXPIRES
+                    </small>
+
+                    <p>
+                        09/28
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         SAVED BENEFICIARIES
+    ========================== -->
+
+    <div class="section">
+
+        <div class="bank-card clickable-section"
+             onclick="showBeneficiaries()">
+
+            <h2>
+                👥 Saved Beneficiaries
+            </h2>
+
+            <p>
+                View and manage your saved
+                transfer recipients.
+            </p>
+
+            <p>
+                <strong>
+                    Tap to view beneficiaries →
+                </strong>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         LOAN INFORMATION
+    ========================== -->
+
+    <div class="section">
+
+        <h2>
+            Loan Information
+        </h2>
+
+        <div class="bank-card">
+
+            <p>
+                <strong>
+                    Status:
+                </strong>
+                Active
+            </p>
+
+            <p>
+                <strong>
+                    Outstanding Balance:
+                </strong>
+                $5,000,000
+            </p>
+
+            <p>
+                <strong>
+                    Monthly Repayment:
+                </strong>
+                $150,000
+            </p>
+
+            <button onclick="applyLoan()">
+                Apply For New Loan
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         FIXED DEPOSIT
+    ========================== -->
+
+    <div class="section">
+
+        <h2>
+            Fixed Deposit
+        </h2>
+
+        <div class="bank-card">
+
+            <p>
+                <strong>
+                    Deposit Amount:
+                </strong>
+                $3,000,000
+            </p>
+
+            <p>
+                <strong>
+                    Interest:
+                </strong>
+                10% Per Year
+            </p>
+
+            <p>
+                <strong>
+                    Maturity:
+                </strong>
+                15 December 2027
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         SECURITY CENTER
+    ========================== -->
+
+    <div class="section">
+
+        <h2>
+            Security Center
+        </h2>
+
+        <div class="bank-card">
+
+            <p>
+                ✅ Two-Factor Authentication Enabled
+            </p>
+
+            <p>
+                ✅ Password Protected
+            </p>
+
+            <button>
+                Manage Security
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================
+         CAPITAL BANK CHATBOT
+    ========================== -->
+
+    <div class="section">
+
+        <div class="bank-card">
+
+            <h2>
+                💬 Capital Bank Chatbot
+            </h2>
+
+            <p>
+                Get assistance with your
+                account and banking services.
+            </p>
+
+
+            <div id="chatBox"
+                 class="chat-box">
+
+                <div class="bot-message">
+
+                    👋 Welcome to Capital Bank.
+
+                    <br><br>
+
+                    I can help with:
+
+                    <br>
+                    • Balance
+                    <br>
+                    • Savings
+                    <br>
+                    • Transfers
+                    <br>
+                    • Loans
+                    <br>
+                    • Deposits
+                    <br>
+                    • Withdrawals
+                    <br>
+                    • Statements
+                    <br>
+                    • Security
+
+                </div>
+
+            </div>
+
+
+            <input
+                type="text"
+                id="chatInput"
+                placeholder="Ask Capital Bank...">
+
+
+            <button onclick="sendChat()">
+
+                Send Message
+
+            </button>
+
+        </div>
+
+    </div>
+    <!-- ==========================
+         END DASHBOARD
+    ========================== -->
 
 </div>
 
-</div>
-<!-- End Dashboard -->
 
-<!-- Footer -->
+<!-- ==========================
+     FOOTER
+========================== -->
+
 <footer class="footer">
 
     <div class="footer-content">
 
-        <h3>Capital Bank</h3>
+        <h3>
+            Capital Bank
+        </h3>
 
         <p>
-            Secure • Reliable • Trusted Digital Banking
+            Secure • Reliable • Trusted Online Banking
         </p>
 
         <p>
-            📞 Customer Care: +1 235 674 5347
+            📞 Customer Care:
+            +1 235 674 5347
         </p>
 
         <p>
-            📧 customercare@capitalbank.com
+            📧 Customer Support:
+            customercare@capitalbank.com
         </p>
 
         <p>
-            🕒 Banking Hours: Monday – Friday | 8:00 AM – 5:00 PM
+            🕒 Banking Hours:
+            Monday – Friday | 8:00 AM – 5:00 PM
         </p>
 
         <p>
-            ©️ 2026 Capital Bank. All Rights Reserved.
+            ©️ 2026 Capital Bank.
+            All Rights Reserved.
         </p>
 
         <p class="footer-note">
-            Your security is our priority. Never share your password, PIN, or One-Time Password (OTP) with anyone.
+
+            Your security is our priority.
+            Never share your password, PIN,
+            or One-Time Password (OTP) with anyone.
+
         </p>
 
     </div>
 
 </footer>
 
-<!-- Receipt Modal -->
 
-<!-- JavaScript -->
-<script type="module" src="app.js"></script>
+<!-- ==========================
+     JAVASCRIPT
+========================== -->
+
+<script type="module"
+        src="app.js">
+</script>
+
 
 </body>
 
