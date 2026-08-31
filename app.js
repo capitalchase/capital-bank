@@ -1063,3 +1063,19 @@ window.openHistory = function () {
     window.location.href = "history.html";
 
 };
+/* ===========================
+   EXCHANGE RATES
+=========================== */
+
+window.showExchangeRates = function () {
+
+    alert(
+        "CAPITAL BANK\n\n" +
+        "Exchange Rates\n\n" +
+        "USD: $1,600\n" +
+        "EUR: $1,730\n" +
+        "GBP: $2,020\n\n" +
+        "Rates shown are for information purposes."
+    );
+
+};
