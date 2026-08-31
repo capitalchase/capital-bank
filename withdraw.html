@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Withdraw Funds</title>
-<link rel="stylesheet" href="style.css">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Capital Bank | Withdraw</title>
+
+<link rel="stylesheet"
+      href="style.css">
+
 </head>
 
-<body onload="loadDashboard()">
+<body>
 
 <div class="container">
 
@@ -15,26 +23,43 @@
 
         <h2>Withdraw Funds</h2>
 
+        <p>
+            Enter the amount you would like to withdraw.
+        </p>
+
         <input
             type="number"
             id="withdrawAmount"
-            placeholder="Enter Amount">
+            placeholder="Enter amount"
+            min="1"
+            step="0.01">
 
-        <button onclick="withdrawMoney()">
+        <button
+            type="button"
+            onclick="withdrawMoney()">
+
             Withdraw Funds
+
         </button>
 
         <br><br>
 
-        <a href="dashboard.html" class="btn">
+        <a href="dashboard.html"
+           class="btn">
+
             Back To Dashboard
+
         </a>
 
     </div>
 
 </div>
 
-<script type="module" src="app.js"></script>
+
+<script type="module"
+        src="app.js">
+</script>
 
 </body>
+
 </html>
